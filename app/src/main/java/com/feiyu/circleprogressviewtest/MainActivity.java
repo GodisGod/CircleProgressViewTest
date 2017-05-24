@@ -175,7 +175,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i("LHD","onDestroy");
+        handler.removeCallbacksAndMessages(null);
         MediaManager.release();
+        imgStart.stop();
     }
 
     @Override
