@@ -110,7 +110,6 @@ public class AudioManger {
     public void release() {
         if (mMediaRecorder != null) {
             mMediaRecorder.stop();
-            mMediaRecorder.reset();
             mMediaRecorder.release();
             mMediaRecorder = null;
         }

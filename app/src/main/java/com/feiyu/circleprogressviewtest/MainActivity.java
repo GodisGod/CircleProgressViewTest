@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private String soundPath;
 
     private int recordTime = 0;
+    private boolean isClick = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i("LHD", "isRecord: " + isRecord);
+                isClick = true;
                 if (!isRecord) {
                     isRecord = true;
                     progressView.setmTxtHint1("再次点击 完成录音");
@@ -175,10 +177,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("LHD","onDestroy");
+        Log.i("LHD", "onDestroy");
         handler.removeCallbacksAndMessages(null);
         MediaManager.release();
-        imgStart.stop();
+        if (isClick) {//只有调用过了imgStart.start()以后才可以使用stop方法
+            imgStart.stop();
+        }
     }
 
     @Override
