@@ -67,15 +67,15 @@
 
         <ImageView
             android:id="@+id/img_play"
-            android:layout_width="80.0dp"
-            android:layout_height="80.0dp"
+            android:layout_width="60.0dp"
+            android:layout_height="60.0dp"
             android:layout_marginRight="20.0dp"
             android:src="@drawable/record_play" />
 
         <ImageView
             android:id="@+id/img_restart"
-            android:layout_width="80.0dp"
-            android:layout_height="80.0dp"
+            android:layout_width="60.0dp"
+            android:layout_height="60.0dp"
             android:layout_marginLeft="20.0dp"
             android:src="@drawable/record_restart" />
 
@@ -83,11 +83,11 @@
 
     <com.feiyu.circleprogressviewtest.recorder.RecordView
         android:id="@+id/img_start"
-        android:layout_width="80.0dp"
-        android:layout_height="80.0dp"
+        android:layout_width="60.0dp"
+        android:layout_height="60.0dp"
         android:layout_below="@id/rela_circleProgressbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50.0dp"
-        android:src="@drawable/record_start" />
+        android:background="@drawable/record_start" />
 
 </RelativeLayout>

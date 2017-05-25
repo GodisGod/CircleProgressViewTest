@@ -95,10 +95,8 @@ public class HDCircleProgressView2 extends View {
             canvas.drawArc(mRectF, -90, ((float) hasMax / mMaxProgress) * 360, false, mPaintHas);
         }
 
-
         //绘制当前进度2
         canvas.drawArc(mRectF, -90, ((float) mProgress / mMaxProgress) * 360, false, mPaint);
-
 
         canvas.save();
 
@@ -115,24 +113,20 @@ public class HDCircleProgressView2 extends View {
         //计算圆的半径
         int circleRadius = mCircleLineStrokeWidth / 2;
 
-
         double angle2 = 1.0f * hasMax / mMaxProgress * Math.PI * 2;
         //当前的进度/总进度*360=当前的角度   当前的进度/总进度*2PI=当前的弧度
         float circleY2 = (float) (radius * Math.sin(angle2 - Math.PI / 2));//从-90°开始计算角度
         float circleX2 = (float) (radius * Math.cos(angle2 - Math.PI / 2));
 
-
         //绘制末点的圆
         mPaintHas.setStyle(Paint.Style.FILL);
         canvas.drawCircle(circleX2, circleY2, circleRadius, mPaintHas);
-
 
         mPaint.setStyle(Paint.Style.FILL);
         //绘制末点的圆
         canvas.drawCircle(circleX, circleY, circleRadius, mPaint);
         //绘制初始点的圆
         canvas.drawCircle(0, -radius, circleRadius, mPaint);
-
 
         canvas.restore();
 
@@ -165,4 +159,5 @@ public class HDCircleProgressView2 extends View {
         mProgress = 0;
         this.invalidate();
     }
+
 }

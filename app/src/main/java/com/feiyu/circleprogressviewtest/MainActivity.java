@@ -15,10 +15,20 @@ import com.feiyu.circleprogressviewtest.recorder.RecordView;
 
 public class MainActivity extends AppCompatActivity {
 
+    //控件初始化
     private HDCircleProgressView2 progressView;
+    private LinearLayout lineBottom;
+    private RecordView imgStart;
+    private ImageView imgPlay;
+    private ImageView imgRestart;
+    private TextView tvTimeTip;
+    private TextView tvTip;
 
+    //进度
     private int progress = 0;
+    //最大录制时间
     private int MAXTIME = 90 * 10;
+
     final Handler handler = new Handler();
 
     Runnable task = new Runnable() {
@@ -42,21 +52,17 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //是否在录制
     private boolean isRecord = false;
-
-    private LinearLayout lineBottom;
-    private RecordView imgStart;
-    private ImageView imgPlay;
-    private ImageView imgRestart;
-
+    //是否在播放
     private boolean isPlaying = false;
+    //录音文件的路径
     private String soundPath;
-
+    //播放时间
     private int recordTime = 0;
+    //是否点击了录制按钮
     private boolean isClick = false;
-
-    private TextView tvTimeTip;
-    private TextView tvTip;
+    //录音时间是否过短
     private boolean isTooShort = false;
 
     @Override
@@ -74,12 +80,13 @@ public class MainActivity extends AppCompatActivity {
         imgPlay = (ImageView) findViewById(R.id.img_play);
         imgStart = (RecordView) findViewById(R.id.img_start);
         imgRestart = (ImageView) findViewById(R.id.img_restart);
-
         tvTimeTip = (TextView) findViewById(R.id.tv_time_tip);
         tvTip = (TextView) findViewById(R.id.tv_tip);
+
         tvTip.setText("点击话筒 开始录音");
 
         progressView = (HDCircleProgressView2) findViewById(R.id.circleProgressbar);
+        progressView.setmMaxProgress(MAXTIME);
         progressView.setmProgress(0);
 
         imgStart.setMaxVoice(16);
@@ -100,12 +107,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 isTooShort = false;
-                imgPlay.setVisibility(View.VISIBLE);
                 imgStart.setVisibility(View.GONE);
+                imgPlay.setVisibility(View.VISIBLE);
                 lineBottom.setVisibility(View.VISIBLE);
                 soundPath = filePath;
                 recordTime = seconds;
-                Log.i("LHD", "录制时间: " + recordTime);
+                Log.i("LHD", "录制时间(100ms): " + recordTime);
             }
 
             @Override
@@ -166,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                     imgPlay.setImageResource(R.drawable.record_pause);
                     isPlaying = true;
                     tvTip.setText("");
+                    handler.post(task);
                     MediaManager.playSound(soundPath, new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mediaPlayer) {
@@ -175,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
                             handler.removeCallbacksAndMessages(null);
                         }
                     });
-                    handler.post(task);
                 }
             }
         });
@@ -184,23 +191,27 @@ public class MainActivity extends AppCompatActivity {
         imgRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //删除之前的录音文件
-
-                //重新开始录制
-                progress = 0;
-                isRecord = false;
-                isPlaying = false;
-                imgPlay.setVisibility(View.VISIBLE);
-                handler.removeCallbacksAndMessages(null);
-                progressView.clear();
-                tvTimeTip.setText("90s");
-                tvTip.setText("点击话筒 开始录音");
-                lineBottom.setVisibility(View.GONE);
-                imgStart.setVisibility(View.VISIBLE);
-                MediaManager.release();
+                reset();
             }
         });
 
+    }
+
+    private void reset() {
+        //删除之前的录音文件
+
+        //重新开始录制
+        progress = 0;
+        isRecord = false;
+        isPlaying = false;
+        imgPlay.setVisibility(View.VISIBLE);
+        handler.removeCallbacksAndMessages(null);
+        progressView.clear();
+        tvTimeTip.setText("90s");
+        tvTip.setText("点击话筒 开始录音");
+        lineBottom.setVisibility(View.GONE);
+        imgStart.setVisibility(View.VISIBLE);
+        MediaManager.release();
     }
 
     @Override
@@ -220,7 +231,6 @@ public class MainActivity extends AppCompatActivity {
         //重新开始录制
         finish();
     }
-
 
 
 }
