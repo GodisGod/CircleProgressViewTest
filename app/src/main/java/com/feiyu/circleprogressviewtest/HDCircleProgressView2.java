@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -13,52 +12,41 @@ import android.view.View;
  * Created by 李鸿达 on 2017/5/22.
  */
 
-public class HDCircleProgressView extends View {
+public class HDCircleProgressView2 extends View {
 
     private int mMaxProgress = 90 * 10;//90个100ms
     private int mProgress = 0;
     private final int mCircleLineStrokeWidth = 22;
-    private final int mTxtStrokeWidth = 2;
 
     private final RectF mRectF;
     private final Paint mPaint;
     private final Paint mPaintHas;
-    private final Paint mTextPaint;
-    private final Context ctx;
-
-    private String mTxtHint1;
 
     private int hasMax = 0;
 
-    private String colorBg = "#F6F7F9";
+    private String colorBg = "#F9F7F6";
     private String colorHas = "#E0E0E0";
     private String colorCurtProgress = "#6DD49E";
 
-    public HDCircleProgressView(Context context) {
+    public HDCircleProgressView2(Context context) {
         super(context, null);
-        ctx = context;
         mRectF = new RectF();
         mPaint = new Paint();
         mPaintHas = new Paint();
-        mTextPaint = new Paint();
     }
 
-    public HDCircleProgressView(Context context, AttributeSet attrs) {
+    public HDCircleProgressView2(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
-        ctx = context;
         mRectF = new RectF();
         mPaint = new Paint();
         mPaintHas = new Paint();
-        mTextPaint = new Paint();
     }
 
-    public HDCircleProgressView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public HDCircleProgressView2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        ctx = context;
         mRectF = new RectF();
         mPaint = new Paint();
         mPaintHas = new Paint();
-        mTextPaint = new Paint();
     }
 
     @Override
@@ -95,7 +83,6 @@ public class HDCircleProgressView extends View {
         //todo 绘制整个圆圈灰色背景
         canvas.drawArc(mRectF, -90, 360, false, mPaint);
 
-
         //todo 绘制进度背景
         mPaint.setColor(Color.parseColor(colorCurtProgress));
         mPaintHas.setColor(Color.parseColor(colorHas));
@@ -109,12 +96,8 @@ public class HDCircleProgressView extends View {
         }
 
 
-
         //绘制当前进度2
         canvas.drawArc(mRectF, -90, ((float) mProgress / mMaxProgress) * 360, false, mPaint);
-
-        //绘制进度文字
-//        drawText(canvas,width,height);
 
 
         canvas.save();
@@ -155,30 +138,6 @@ public class HDCircleProgressView extends View {
 
     }
 
-    private void drawText(Canvas canvas,int width,int height) {
-        //todo 进度文字的颜色
-        mTextPaint.setColor(Color.parseColor(colorCurtProgress));
-        mTextPaint.setStrokeWidth(mTxtStrokeWidth);
-        String text = mProgress / 10 + "s";
-        int textHeight = height / 4;
-        mTextPaint.setTextSize(textHeight);
-        int textWidth = (int) mTextPaint.measureText(text, 0, text.length());
-        mTextPaint.setStyle(Paint.Style.FILL);
-        canvas.drawText(text, width / 2 - textWidth / 2, height / 2, mTextPaint);
-
-        if (!TextUtils.isEmpty(mTxtHint1)) {
-            mTextPaint.setStrokeWidth(mTxtStrokeWidth);
-            text = mTxtHint1;
-            textHeight = height / 16;
-            mTextPaint.setTextSize(textHeight);
-            //todo 提示文字的颜色
-            mTextPaint.setColor(Color.rgb(0x99, 0x99, 0x99));
-            textWidth = (int) mTextPaint.measureText(text, 0, text.length());
-            mTextPaint.setStyle(Paint.Style.FILL);
-            canvas.drawText(text, width / 2 - textWidth / 2, 3 * height / 5 + textHeight / 2, mTextPaint);
-        }
-    }
-
 
     public void setProgressNotInUiThread(int progress) {
         this.mProgress = progress;
@@ -201,16 +160,7 @@ public class HDCircleProgressView extends View {
         this.mProgress = mProgress;
     }
 
-    public String getmTxtHint1() {
-        return mTxtHint1;
-    }
-
-    public void setmTxtHint1(String mTxtHint1) {
-        this.mTxtHint1 = mTxtHint1;
-        this.invalidate();
-    }
-
-    public void clear(){
+    public void clear() {
         hasMax = 0;
         mProgress = 0;
         this.invalidate();

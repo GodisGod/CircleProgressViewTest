@@ -58,15 +58,21 @@ public class RecordView extends ImageView implements AudioManger.AudioStateListe
             audioManger.prepareAudio();
         }
         audioManger.start();
+        isRecording = true;
         //更新音量
         handler.post(runnable);
     }
 
     public void stop() {
+
+        if (time <= 30) {
+            audioRecordListener.tooShort();
+        } else {
+            //回调
+            audioRecordListener.finish(time, audioManger.getCurrentFilePath());
+        }
         //正常结束
         audioManger.release();
-        //回调
-        audioRecordListener.finish(time, audioManger.getCurrentFilePath());
         isPrepared = false;
         reset();
     }

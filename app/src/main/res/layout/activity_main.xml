@@ -16,23 +16,54 @@
         android:text="Hello World!" />
 
 
-    <com.feiyu.circleprogressviewtest.HDCircleProgressView
-        android:id="@+id/circleProgressbar"
-        android:layout_width="200.0dp"
-        android:layout_height="200.0dp"
+    <RelativeLayout
+        android:id="@+id/rela_circleProgressbar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50.0dp" />
+        android:layout_marginTop="50.0dp">
+
+        <com.feiyu.circleprogressviewtest.HDCircleProgressView2
+            android:id="@+id/circleProgressbar"
+            android:layout_width="200.0dp"
+            android:layout_height="200.0dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_time_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="90s"
+                android:textColor="#6DD49E"
+                android:textSize="40.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5.0dp"
+                android:text="试听录音 重新录制"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+    </RelativeLayout>
 
 
     <LinearLayout
         android:id="@+id/line_play_restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/circleProgressbar"
+        android:layout_below="@id/rela_circleProgressbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50.0dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/img_play"
@@ -54,7 +85,7 @@
         android:id="@+id/img_start"
         android:layout_width="80.0dp"
         android:layout_height="80.0dp"
-        android:layout_below="@id/circleProgressbar"
+        android:layout_below="@id/rela_circleProgressbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50.0dp"
         android:src="@drawable/record_start" />
